@@ -199,8 +199,6 @@ class ConfigDBConnector(SonicV2Connector):
             client.delete(_hash)
         else:
             client.hmset(_hash, self.__typed_to_raw(data))
-            if table == "PORT":
-                time.sleep(2)
 
     def get_entry(self, table, key):
         """Read a table entry from config db.
