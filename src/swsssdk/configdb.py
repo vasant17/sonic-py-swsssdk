@@ -1,5 +1,5 @@
 """
-SONiC ConfigDB connection module
+SONiC ConfigDB connection module 
 
 Example:
     # Write to config DB
@@ -65,7 +65,7 @@ class ConfigDBConnector(SonicV2Connector):
 
     def subscribe(self, table, handler):
         """Set a handler to handle config change in certain table.
-        Note that a single handler can be registered to different tables by
+        Note that a single handler can be registered to different tables by 
         calling this fuction multiple times.
         Args:
             table: Table name.
@@ -199,15 +199,13 @@ class ConfigDBConnector(SonicV2Connector):
             client.delete(_hash)
         else:
             client.hmset(_hash, self.__typed_to_raw(data))
-            if table == "PORT":
-                time.sleep(2)
 
     def get_entry(self, table, key):
         """Read a table entry from config db.
         Args:
             table: Table name.
             key: Key of table entry, or a tuple of keys if it is a multi-key table.
-        Returns:
+        Returns: 
             Table row data in a form of dictionary {'column_key': 'value', ...}
             Empty dictionary if table does not exist or entry does not exist.
         """
@@ -222,7 +220,7 @@ class ConfigDBConnector(SonicV2Connector):
             table: Table name.
             split: split the first part and return second.
                    Useful for keys with two parts <tablename>:<key>
-        Returns:
+        Returns: 
             List of keys.
         """
         client = self.get_redis_client(self.db_name)
@@ -246,8 +244,8 @@ class ConfigDBConnector(SonicV2Connector):
         """Read an entire table from config db.
         Args:
             table: Table name.
-        Returns:
-            Table data in a dictionary form of
+        Returns: 
+            Table data in a dictionary form of 
             { 'row_key': {'column_key': value, ...}, ...}
             or { ('l1_key', 'l2_key', ...): {'column_key': value, ...}, ...} for a multi-key table.
             Empty dictionary if table does not exist.
@@ -288,7 +286,7 @@ class ConfigDBConnector(SonicV2Connector):
            Extra entries/fields in the db which are not in the data are kept.
         Args:
             data: config data in a dictionary form
-            {
+            { 
                 'TABLE_NAME': { 'row_key': {'column_key': 'value', ...}, ...},
                 'MULTI_KEY_TABLE_NAME': { ('l1_key', 'l2_key', ...) : {'column_key': 'value', ...}, ...},
                 ...
@@ -303,10 +301,10 @@ class ConfigDBConnector(SonicV2Connector):
                 self.mod_entry(table_name, key, table_data[key])
 
     def get_config(self):
-        """Read all config data.
+        """Read all config data. 
         Returns:
-            Config data in a dictionary form of
-            {
+            Config data in a dictionary form of 
+            { 
                 'TABLE_NAME': { 'row_key': {'column_key': 'value', ...}, ...},
                 'MULTI_KEY_TABLE_NAME': { ('l1_key', 'l2_key', ...) : {'column_key': 'value', ...}, ...},
                 ...
